@@ -19,8 +19,6 @@ public class TeleprompterController : MonoBehaviour
         _imageName.Add ("Page2");
         _imageName.Add ("Page3");
         _imageName.Add ("Page4");
- 
-        Debug.Log (_imageName.Count);
     }
  
     public void LoadNextPic(bool LeftRight)

@@ -19,8 +19,6 @@ public class SlideShowController : MonoBehaviour
         _imageName.Add ("Slide2");
         _imageName.Add ("Slide3");
         _imageName.Add ("Slide4");
- 
-        Debug.Log (_imageName.Count);
     }
  
     public void LoadNextPic(bool LeftRight)
