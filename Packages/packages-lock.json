@@ -32,14 +32,14 @@
       "hash": "fc717953fefc169b21c2437dc5bb4207f0acf85f"
     },
     "com.readyplayerme.webview": {
-      "version": "https://github.com/readyplayerme/rpm-unity-sdk-webview.git#v1.1.0",
+      "version": "https://github.com/readyplayerme/rpm-unity-sdk-webview.git#v1.1.1",
       "depth": 0,
       "source": "git",
       "dependencies": {
         "com.unity.ugui": "1.0.0",
         "com.unity.nuget.newtonsoft-json": "3.0.2"
       },
-      "hash": "12e725a2a7af509bbe0280eae746bf80ef6f27d1"
+      "hash": "75ab840b2fadca1bf9dc5348fdc80aee049b0f2b"
     },
     "com.unity.animation.rigging": {
       "version": "1.1.1",
@@ -105,7 +105,7 @@
       }
     },
     "com.unity.ide.rider": {
-      "version": "3.0.18",
+      "version": "3.0.21",
       "depth": 0,
       "source": "registry",
       "dependencies": {
