@@ -12,13 +12,6 @@ public class FlightController : MonoBehaviour
     [SerializeField] private float thrust = 0;
     public Vector3 impulseAngle;
     
-    IEnumerator FLightController()
-    {
-        MoveShip();
-        yield return null;
-    }
-    
-    
     private float AngleChange(float v)
     {
         if (v > 180)
@@ -64,7 +57,7 @@ public class FlightController : MonoBehaviour
         
         
         //Move craft forward & backward using impulse as speed component
-        JointRotation(impulseLever);
+       /* JointRotation(impulseLever);
         //Debug.Log(impulseAngle.y);
         
         if (impulseAngle.x > 0 && impulseAngle.x <= 65)
@@ -87,7 +80,7 @@ public class FlightController : MonoBehaviour
         {
             //Debug.Log("Left " + impulseAngle.y);
             cubeShip.Translate(-Vector3.left * (impulseAngle.y * 0.01f * Time.deltaTime));
-        }
+        }*/
     }
 
     void Update()
