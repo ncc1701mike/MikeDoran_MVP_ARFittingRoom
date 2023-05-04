@@ -2,9 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-
-public class MapTransforms
+[System.Serializable] public class MapTransforms
 {
     public Transform vrTarget;
     public Transform ikTarget;
