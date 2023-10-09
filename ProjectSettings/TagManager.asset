@@ -3,16 +3,19 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Recording Camera
+  - Hand
+  - SamplesInfoPanel
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Grab
   - Water
   - UI
-  - 
-  - 
+  - Button
+  - HandTracking
   - 
   - 
   - 
