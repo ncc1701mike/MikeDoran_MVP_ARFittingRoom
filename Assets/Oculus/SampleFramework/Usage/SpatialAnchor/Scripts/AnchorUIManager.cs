@@ -20,7 +20,11 @@ public class AnchorUIManager : MonoBehaviour
     /// <summary>
     /// Anchor Mode switches between create and select
     /// </summary>
-    public enum AnchorMode { Create, Select };
+    public enum AnchorMode
+    {
+        Create,
+        Select
+    };
 
     [SerializeField, FormerlySerializedAs("createModeButton_")]
     private GameObject _createModeButton;
@@ -42,7 +46,7 @@ public class AnchorUIManager : MonoBehaviour
 
     private Anchor _selectedAnchor;
 
-    private AnchorMode _mode = AnchorMode.Create;
+    private AnchorMode _mode = AnchorMode.Select;
 
     [SerializeField, FormerlySerializedAs("buttonList_")]
     private List<Button> _buttonList;
@@ -88,14 +92,17 @@ public class AnchorUIManager : MonoBehaviour
     {
         _raycastOrigin = _trackedDevice;
 
+        // Start in select mode
+        _mode = AnchorMode.Select;
+        StartSelectMode();
+
+        _menuIndex = 0;
         _selectedButton = _buttonList[0];
-        _buttonList[0].OnSelect(null);
+        _selectedButton.OnSelect(null);
 
         _lineRenderer.startWidth = 0.005f;
         _lineRenderer.endWidth = 0.005f;
 
-
-        ToggleCreateMode();
     }
 
 
@@ -201,14 +208,17 @@ public class AnchorUIManager : MonoBehaviour
         {
             return;
         }
+
         if (OVRInput.GetDown(OVRInput.RawButton.RThumbstickUp))
         {
             NavigateToIndexInMenu(false);
         }
+
         if (OVRInput.GetDown(OVRInput.RawButton.RThumbstickDown))
         {
             NavigateToIndexInMenu(true);
         }
+
         if (OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger))
         {
             _selectedButton.OnSubmit(null);
@@ -234,6 +244,7 @@ public class AnchorUIManager : MonoBehaviour
                 _menuIndex = _buttonList.Count - 1;
             }
         }
+
         _selectedButton.OnDeselect(null);
         _selectedButton = _buttonList[_menuIndex];
         _selectedButton.OnSelect(null);
@@ -270,7 +281,8 @@ public class AnchorUIManager : MonoBehaviour
     {
         Ray ray = new Ray(_raycastOrigin.position, _raycastOrigin.TransformDirection(Vector3.forward));
         _lineRenderer.SetPosition(0, _raycastOrigin.position);
-        _lineRenderer.SetPosition(1, _raycastOrigin.position + _raycastOrigin.TransformDirection(Vector3.forward) * 10f);
+        _lineRenderer.SetPosition(1,
+            _raycastOrigin.position + _raycastOrigin.TransformDirection(Vector3.forward) * 10f);
 
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
@@ -284,6 +296,7 @@ public class AnchorUIManager : MonoBehaviour
                 return;
             }
         }
+
         UnhoverAnchor();
     }
 
@@ -299,6 +312,7 @@ public class AnchorUIManager : MonoBehaviour
         {
             return;
         }
+
         _hoveredAnchor.OnHoverEnd();
         _hoveredAnchor = null;
     }
@@ -339,3 +353,4 @@ public class AnchorUIManager : MonoBehaviour
 
     #endregion // Private Methods
 }
+

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Recording Camera
   - Hand
+  - SamplesInfoPanel
   layers:
   - Default
   - TransparentFX
@@ -13,8 +14,8 @@ TagManager:
   - Grab
   - Water
   - UI
-  - 
-  - 
+  - Button
+  - HandTracking
   - 
   - 
   - 

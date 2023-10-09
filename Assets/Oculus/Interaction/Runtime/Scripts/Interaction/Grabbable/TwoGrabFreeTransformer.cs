@@ -20,6 +20,7 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using System;
 
 namespace Oculus.Interaction
@@ -37,9 +38,19 @@ namespace Oculus.Interaction
         private float _initialDistance;
         private float _initialScale = 1.0f;
         private float _activeScale = 1.0f;
+        private bool atMaxMinScaleEventInvoked = false;
+
 
         private Pose _previousGrabPointA;
         private Pose _previousGrabPointB;
+        
+        [SerializeField] private Mesh newMesh, oldMesh;
+        [SerializeField] private Material newMaterial, oldMaterial;
+
+        [SerializeField] private UnityEvent _atMaxMinScale = new UnityEvent();
+        public UnityEvent AtMaxMinScale => _atMaxMinScale; 
+        public ParticleSystem glitterParticleSystem;
+
 
         [Serializable]
         public class TwoGrabFreeConstraints
@@ -49,6 +60,7 @@ namespace Oculus.Interaction
             public bool ConstraintsAreRelative;
             public FloatConstraint MinScale;
             public FloatConstraint MaxScale;
+            
         }
 
         [SerializeField]
@@ -146,6 +158,49 @@ namespace Oculus.Interaction
             if(_constraints.MaxScale.Constrain)
             {
                 _activeScale = Mathf.Min(_constraints.MaxScale.Value, _activeScale);
+            }
+
+           // Find the child object using a hierarchical path
+            Transform grandchildTransform = _grabbable.Transform.Find("Visuals/Mesh");
+            if (grandchildTransform != null)
+            {
+                MeshFilter grandchildMeshFilter = grandchildTransform.GetComponent<MeshFilter>();
+                MeshRenderer grandchildMeshRenderer = grandchildTransform.GetComponent<MeshRenderer>();
+
+                // Declare and initialize previousMesh
+                Mesh previousMesh = grandchildMeshFilter.mesh;
+
+                // Update the mesh based on scale constraints
+                if (grandchildMeshFilter != null && grandchildMeshRenderer != null)
+                {
+                    Mesh newSelectedMesh = (_constraints.MaxScale.Constrain && _activeScale >= _constraints.MaxScale.Value) ? newMesh :
+                                        (_constraints.MinScale.Constrain && _activeScale <= _constraints.MinScale.Value) ? oldMesh :
+                                        grandchildMeshFilter.mesh;
+
+                    if (newSelectedMesh != previousMesh)
+                    {
+                        grandchildMeshFilter.mesh = newSelectedMesh;
+                        grandchildMeshRenderer.material = (newSelectedMesh == newMesh) ? newMaterial : oldMaterial;
+                        Debug.Log(grandchildMeshFilter.mesh);
+                        Debug.Log(newMesh);
+                        Debug.Log(oldMesh);
+                        Debug.Log(newMaterial);
+                        Debug.Log(oldMaterial);
+
+                        if (!atMaxMinScaleEventInvoked)
+                        {
+                            _atMaxMinScale.Invoke();
+                            glitterParticleSystem.Play();
+                            atMaxMinScaleEventInvoked = true;
+                        }
+                    }
+                    else
+                    {
+                        atMaxMinScaleEventInvoked = false;
+                    }
+
+                    previousMesh = grandchildMeshFilter.mesh;
+                }
             }
 
             // Apply the positional delta initialCenter -> targetCenter and the

@@ -7,19 +7,34 @@ public class VoodooController : MonoBehaviour
 {
    // public GameObject mannequin;
     public GameObject voodooMannequin;
-    private float _rotate;
+    private Quaternion _previousRotation;
+    private AudioSource _audioSource;
 
-    private void Start()
+private void Start()
     {
-        
+        _previousRotation = transform.rotation;
+        _audioSource = GetComponent<AudioSource>();
     }
-
     private void Update()
     {
-        //var yRotation = voodooMannequin.transform.rotation.eulerAngles.y;
-        //mannequin.transform.Rotate(0, 0,yRotation);
-       
          transform.rotation = voodooMannequin.transform.rotation;
+
+         if (_previousRotation != voodooMannequin.transform.rotation)
+         {
+            if (!_audioSource.isPlaying)
+            {
+                _audioSource.Play();
+            }
+         }
+         else
+         {  
+            if (_audioSource.isPlaying)
+            {
+                _audioSource.Stop();
+            }
+         }
+
+            _previousRotation = voodooMannequin.transform.rotation;
     }
     
 }

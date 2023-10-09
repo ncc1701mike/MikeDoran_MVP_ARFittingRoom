@@ -25,8 +25,8 @@ ScriptedImporter:
     sceneObjectCreation: 2
   assetDependencies:
   - type: 0
-    originalUri: Assets\Avatars\male_base_mesh_rigged_2\scene.bin
-    assetPath: Assets\Avatars\male_base_mesh_rigged_2\scene.bin
+    originalUri: Assets\Avatars\OVR_Avatar\scene.bin
+    assetPath: Assets\Avatars\OVR_Avatar\scene.bin
   reportItems:
   - type: 2
     code: 20

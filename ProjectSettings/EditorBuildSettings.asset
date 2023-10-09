@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Samples/HandTester.unity
-    guid: eab6656c8ae66b14da401fff68e2d47d
+    path: Assets/Scenes/AR_Shopping_Mike_Doran.unity
+    guid: 7e6ed0ea59cc26b4d90a267b8009f8c1
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: bfa1182bd221b4ca89619141f66f1260,
       type: 2}
